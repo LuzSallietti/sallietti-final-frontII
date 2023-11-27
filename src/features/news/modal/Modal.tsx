@@ -1,60 +1,28 @@
-import React from 'react';
-import { SuscribeImage, CloseButton as Close } from '../../../assets';
+import { ContenedorModal } from '../styled';
+import Contenido from './Contenido';
 import { INoticiasNormalizadas } from '../Noticias';
-import {
-  CloseButton,
-  TarjetaModal,
-  ContenedorModal,
-  DescripcionModal,
-  ImagenModal,
-  TituloModal,
-  BotonSuscribir,
-  CotenedorTexto,
-} from '../styled';
 
 interface ModalProps {
   noticia: INoticiasNormalizadas;
   setModal: (noticia: INoticiasNormalizadas | null) => void;
 }
+/*Refactorización sigue el Principio de Responsabilidad única
+dividiendo la lógica de presentación del modal en un componente separado
+(ModalContent) y el componente principal (Modal) que maneja el estado y la lógica de suscripción.
+Separa las responsabilidades en dos componentes.*/
 
 const Modal = ({ noticia, setModal }: ModalProps) => {
+  const handleClick = () => {
+    setTimeout(() => {
+      alert('¡Suscripto!');
+      setModal(null);
+    }, 1000);
+  };
+ 
+
   return (
     <ContenedorModal>
-      <TarjetaModal>
-        <CloseButton onClick={() => setModal(null)}>
-          <img src={Close} alt="close-button" />
-        </CloseButton>
-        {noticia.esPremium && (
-          <>
-            <ImagenModal src={SuscribeImage} alt="mr-burns-excelent" />
-            <CotenedorTexto>
-              <TituloModal>Suscríbete a nuestro Newsletter</TituloModal>
-              <DescripcionModal>
-                Suscríbete a nuestro newsletter y recibe noticias de nuestros personajes favoritos.
-              </DescripcionModal>
-              <BotonSuscribir
-                onClick={() =>
-                  setTimeout(() => {
-                    alert('¡Suscripto!');
-                    setModal(null);
-                  }, 1000)
-                }
-              >
-                Suscríbete
-              </BotonSuscribir>
-            </CotenedorTexto>
-          </>
-        )}
-        {!noticia.esPremium && (
-            <>
-            <ImagenModal src={noticia.imagen} alt="news-image" />
-            <CotenedorTexto>
-              <TituloModal>{noticia.titulo}</TituloModal>
-              <DescripcionModal>{noticia.descripcion}</DescripcionModal>
-            </CotenedorTexto>
-            </>
-        )}
-      </TarjetaModal>
+      <Contenido noticia={noticia} onSubscribe={handleClick} />
     </ContenedorModal>
   );
 };

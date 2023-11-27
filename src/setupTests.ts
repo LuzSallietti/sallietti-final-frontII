@@ -3,3 +3,14 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
+import { server } from './mocks/server'
+
+beforeAll(() => {
+    server.listen()
+    console.log("SERVIDOR INICIADO...")
+}
+    );
+
+afterAll(() => server.close());
+
+afterEach(() => server.resetHandlers());

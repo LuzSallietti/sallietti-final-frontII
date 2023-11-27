@@ -1,21 +1,21 @@
 import React from 'react'
 import { INoticiasNormalizadas } from '../Noticias'
-import Tarjeta from '../tarjeta/Tarjeta'
+import { ListaNoticias } from '../styled';
+
 
 interface ListaProps {
-    noticias : INoticiasNormalizadas [],
-    setModal: (noticia: INoticiasNormalizadas | null) => void; 
+    noticias : INoticiasNormalizadas []
+    render: (noticia: INoticiasNormalizadas ) => React.ReactNode;     
 }
 
-const Lista = ({ noticias, setModal }: ListaProps) => {
-  return (
-    <ul>
-    {noticias.map((noticia) => (
-      <li key={noticia.id}>
-        <Tarjeta noticia={noticia} setModal={setModal} />
-      </li>
-    ))}
-  </ul>
+const Lista = ({ noticias, render }: ListaProps) => {
+
+  return (    
+    <ListaNoticias>        
+        {noticias.map((noticia) => {
+         return render(noticia)
+        })}
+    </ListaNoticias>    
   )
 }
 

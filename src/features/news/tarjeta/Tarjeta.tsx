@@ -3,21 +3,23 @@ import { TarjetaNoticia, ImagenTarjetaNoticia, TituloTarjetaNoticia, FechaTarjet
 import { INoticiasNormalizadas } from '../Noticias'
 
 interface TarjetaProps {
-    noticia: INoticiasNormalizadas;
-    setModal: (noticia: INoticiasNormalizadas | null) => void; 
+    noticia: INoticiasNormalizadas; 
+    setModal: (noticia: INoticiasNormalizadas | null) => void;
   }
 
 const Tarjeta = ({ noticia, setModal }: TarjetaProps) => {
   return (
-    <TarjetaNoticia>
+    <li>
+        <TarjetaNoticia>
             <ImagenTarjetaNoticia src={noticia.imagen} />
             <TituloTarjetaNoticia>{noticia.titulo}</TituloTarjetaNoticia>
             <FechaTarjetaNoticia>{noticia.fecha}</FechaTarjetaNoticia>
             <DescripcionTarjetaNoticia>
-              {noticia.descripcionCorta}
+                {noticia.descripcionCorta}
             </DescripcionTarjetaNoticia>
             <BotonLectura onClick={() => setModal(noticia)}>Ver más</BotonLectura>
-          </TarjetaNoticia>
+        </TarjetaNoticia>
+    </li>
   )
 }
 

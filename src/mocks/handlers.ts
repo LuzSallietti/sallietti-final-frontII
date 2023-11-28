@@ -1,18 +1,15 @@
-import {rest } from 'msw'
-import { API_URL } from '../app/constants';
-import { citaRandom, citaPersonaje } from './dataMock';
+import {rest} from 'msw'
+import { API_URL } from '../app/constants'
+import { citaPersonaje, citaRandom } from './dataMock'
 
 export const handlers = [
-  
-  rest.get("https://thesimpsonsquoteapi.glitch.me/quotes", async (req, res, ctx) => {
-    console.log("Ejecutando desde MSW");
-    console.log(req.url.searchParams.get('character'))
-           
-
-    return res(      
-      ctx.status(200),
-      ctx.json([citaRandom])
-    )
-  })
-  
+    rest.get(API_URL, (req, res, ctx) => {
+       const data = req.url.searchParams.get('character') ? citaPersonaje : citaRandom
+       console.log('Ejecutando desde msw', data)       
+       
+        return res(
+            ctx.status(200),
+            ctx.json(data)
+        )
+    })
 ]
